@@ -1,0 +1,115 @@
+.tasks-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} .tasks {
+    width: 80%;
+    height: calc(var(--hgt) - 270px);
+    border-radius: var(--btn-rad);
+    margin-top: 50px;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+}
+.task {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 80px 20px 30px;
+    min-height: 5vh;
+    width: 100%;
+    background-color: var(--pg);
+    border-radius: var(--btn-rad);
+    background-color: #2d32505e;
+    margin-bottom: 20px;
+    position: relative;
+} .task button {
+    min-width: 5vh;
+    min-height: 5vh;
+    max-width: 50px;
+    max-height: 50px;
+    font-size: var(--fnt-size-s);
+    background-color: rgba(255, 255, 255, 0);
+    position: absolute;
+    top: 0;
+    right: 0;
+} input[type='checkbox'] + label {
+    display: inline-flex;
+    align-items: center;
+    gap: 50px;
+    cursor: pointer;
+    font-size: var(--fnt-size-t);
+    transition: 0.5s;
+}   input[type='checkbox'] {
+    display: none;
+}
+label {
+    width: 100%;
+}
+.custom + label::before {
+    content: "";
+    border: 2px solid var(--bg);
+    border-radius: 4px;
+    display: inline-block;
+    width: 7vh;
+    height: 7vh;
+    max-width: 30px;
+    max-height: 30px;
+    border-radius: var(--btn-rad);
+    outline: none;  
+}
+.custom:checked + label::before {
+    background-color: var(--bg);
+    border-color: var(--bg);
+    background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 24 24' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 6L9 17l-5-5' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-size: 14px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.task-text{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+.time{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.no-tasks, .no-tasks i{
+    color: var(--bt);
+    font-size: var(--fnt-size-s);
+    width: 100%;
+    height: 75%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+} .no-tasks div {
+    font-size: calc(var(--fnt-size-t) * 8);
+    color: var(--bt);
+}
+b {
+    font-size: calc(var(--fnt-size-t) + 4px);
+}
+i {
+    font-size: calc(var(--fnt-size-t) - 7px);
+}
+/* Scrollbar styles for WebKit browsers */
+*::-webkit-scrollbar {
+    width: 6px;
+}
+
+*::-webkit-scrollbar-track {
+    background: none; /* Background of the scrollbar track */
+    border-radius: var(--btn-rad);
+
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--bg); /* Color of the scrollbar thumb */
+    border-radius: var(--btn-rad);
+    cursor: pointer;
+    border: 3px solid #2d32505e; /* Padding around the thumb */
+}

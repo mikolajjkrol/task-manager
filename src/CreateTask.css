@@ -1,0 +1,56 @@
+.create-task {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: calc(var(--hgt) - 250px);
+} .info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+input,#btn {
+  width: 80%;
+  height: 6vh;
+  max-height: 70px;
+  border: none;
+  border-radius: var(--btn-rad);
+  outline: none;
+  padding: 0 20px;
+  font-size: var(--fnt-size-s);
+  background-color: var(--bt);
+} #title {
+  font-weight: bold;
+  width: 20%;
+} #description {
+  width: calc(60% - 20px);
+} #due-date {
+  width: 40%;
+} #due-time {
+  width: calc(40% - 20px);
+} #person {
+  width: 70%;
+} #btn {
+  width: calc(10% - 20px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+input::placeholder {
+  color: var(--placeholder-color);
+}
+
+.alert {
+  position: absolute;
+  width: 500px;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+}
