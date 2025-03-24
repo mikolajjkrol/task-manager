@@ -1,30 +1,29 @@
-import { useState } from "react"
-export default function Menu({createTask, viewTasks}) {
-    const [ activate , setActivate ] = useState('menu');
+import { useState } from "react";
 
-    function activateBtn(which){
-        if(which == 'menu'){ 
-            viewTasks();
-            setActivate('menu');
-        } else if(which == 'create'){ 
-            createTask();
-            setActivate('create');
-        } else if (which == 'search'){ 
-            createTask();
-            setActivate('search');
-        } else if (which == 'note'){ 
-            createTask();
-            setActivate('note');
-        }
+export default function Menu({ createTask, viewTasks }) {
+    const [active, setActive] = useState("menu");
 
-    }
+    const buttons = [
+        { id: "menu", action: viewTasks },
+        { id: "create", action: createTask },
+        { id: "search", action: createTask },
+        { id: "note", action: createTask }
+    ];
 
     return (
-        <div className='menu'>
-            <button className={activate == 'menu' ? "material-icons buttonactive" : "material-icons btn"} onClick={()=>{activateBtn('menu')}}>menu</button>
-            <button className={activate == 'create' ? 'buttonactive material-icons' : 'material-icons btn'} onClick={()=>{activateBtn('create')}}>add</button>
-            <button className={activate == 'search' ? "material-icons buttonactive" : "material-icons btn"} onClick={()=>{activateBtn('search')}}>search</button>
-            <button className={activate == 'note' ? "material-icons buttonactive" : "material-icons btn"} onClick={()=>{activateBtn('note')}} >note</button>
+        <div className="menu">
+            {buttons.map(({ id, action }) => (
+                <button
+                    key={id}
+                    className={`material-icons ${active === id ? "buttonactive" : "btn"}`}
+                    onClick={() => {
+                        action();
+                        setActive(id);
+                    }}
+                >
+                    {id}
+                </button>
+            ))}
         </div>
-    )
+    );
 }

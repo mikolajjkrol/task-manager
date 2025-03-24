@@ -7,5 +7,6 @@ export const TasksManagerContext = createContext([
         date: '',
         time: '',
         who: '',
+        isChecked: false,
     },
 ]);

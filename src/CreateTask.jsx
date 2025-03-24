@@ -1,6 +1,4 @@
 import { useRef } from "react"
-
-
 export default function CreateTask({addTask}) {
     const title = useRef()
     const description = useRef()
@@ -14,16 +12,22 @@ export default function CreateTask({addTask}) {
             description: description.current.value,
             date: dueDate.current.value,
             time: dueTime.current.value,
-            who: person.current.value
+            who: person.current.value,
+            isChecked: false,
         }
 
         addTask(task)
-        title.current.value = ''
+        
+        if(task.title == '' && task.description == ''){
+           return 
+        } else {
+            title.current.value = ''
         description.current.value = ''
         dueDate.current.value = ''
         dueTime.current.value = ''
         person.current.value = ''
 
+        }
     }
     return (
         <>

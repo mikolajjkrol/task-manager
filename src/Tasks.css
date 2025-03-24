@@ -71,6 +71,8 @@ label {
     flex-direction: column;
     gap: 10px;
     width: 100%;
+} .oncheck {
+    text-decoration:line-through;
 }
 .time{
     display: flex;

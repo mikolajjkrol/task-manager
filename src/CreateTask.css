@@ -23,6 +23,9 @@ input,#btn {
   padding: 0 20px;
   font-size: var(--fnt-size-s);
   background-color: var(--bt);
+  transition: 1s;
+  border-bottom: 6px solid var(--bg);
+  cursor: pointer;
 } #title {
   font-weight: bold;
   width: 20%;
@@ -39,7 +42,6 @@ input,#btn {
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
 }
 
 input::placeholder {
@@ -48,9 +50,8 @@ input::placeholder {
 
 .alert {
   position: absolute;
-  width: 500px;
+  width: 40dvw;
   top: 5%;
   left: 50%;
   transform: translate(-50%, -50%);
-
 }
