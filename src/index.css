@@ -48,7 +48,7 @@
   justify-content: space-between;
   align-items: flex-start;
   width: var(--wdt);
-  max-width: 1400px;
+  max-width: 1100px;
   height: var(--hgt);
 
   -webkit-box-shadow: 0px 0px 18px -12px rgba(0, 0, 0, 1);
@@ -99,18 +99,27 @@
 /* BUTTONS */
 button {
   background-color: var(--bt);
-  width: 70px;
-  height: 70px;
   border: none;
   border-radius: var(--btn-rad);
   cursor: pointer;
   font-size: 36px;
-} .menu button {
+} .menu .btn {
   width: 5vh;
   height: 5vh;
   max-width: 50px;
   max-height: 50px;
   font-size: var(--fnt-size-s);
+  transition: 0.5s;
+} .menu .btn:hover{
+  width: 5.5vh;
+  height: 5.5vh;
+  max-width: 66px;
+  max-height: 66px;
+} .buttonactive{
+  width: 5.5vh;
+  height: 5.5vh;
+  max-width: 66px;
+  max-height: 66px;
 }
 
 .switch{

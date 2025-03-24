@@ -22,7 +22,9 @@ function App() {
       setTimeout(() => {
         setShowAlert(prev=>{return {...prev, onAdd: false}});
       }, 3000); // Hide alert after 3 seconds
-  
+      
+      
+
       setTasks((prevTasks)=>{
         const newTasks = [...prevTasks, task];
         console.log(newTasks)
