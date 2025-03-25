@@ -1,17 +1,9 @@
 import { TasksManagerContext } from "./store/tasks-manager-context"
 import { useContext, useState } from "react"
 
-export default function Tasks({removeTask}) {
+export default function Tasks({removeTask, onCheck}) {
     const tasksList = useContext(TasksManagerContext)
-    const [ isChecked, setIsChecked ] = useState({});
-
-    const handleCheck = (taskIndex) => {
-        setIsChecked((prevState) => ({
-            ...prevState,
-            [taskIndex]: !prevState[taskIndex]
-        }));
-    };
-
+    
     return (
         <>
         <div className='header'>Tasks</div>
@@ -24,10 +16,10 @@ export default function Tasks({removeTask}) {
                 </div>
             }
             {   
-            tasksList.map((task, index) => {
+            tasksList.map((task) => {
                     return (
-                        <div className={`task ${isChecked[index] ? 'oncheck' : ''}`} key={tasksList.indexOf(task)}>
-                            <input type='checkbox' id={tasksList.indexOf(task)} className="custom" onChange={()=>handleCheck(index)}/>
+                        <div className={`task ${task.isChecked ? 'oncheck' : ''}`} key={tasksList.indexOf(task)}>
+                            <input type='checkbox' id={tasksList.indexOf(task)} className="custom" onChange={()=>{onCheck(tasksList.indexOf(task))}} checked={task.isChecked}/>
                             <label htmlFor={tasksList.indexOf(task)}>
                                 <div className="task-text">
                                     <b>{task.title}</b>

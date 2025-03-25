@@ -18,12 +18,16 @@
     padding: 20px 80px 20px 30px;
     min-height: 5vh;
     width: 100%;
-    background-color: var(--pg);
+    background-color: var(--task);
     border-radius: var(--btn-rad);
-    background-color: #2d32505e;
     margin-bottom: 20px;
     position: relative;
-} .task button {
+    border-bottom: 8px solid var(--bg);
+    transition: 0.5s;
+} .task:hover{
+    background-color: var(--bt-fc);
+}
+.task button {
     min-width: 5vh;
     min-height: 5vh;
     max-width: 50px;
@@ -48,19 +52,19 @@ label {
 }
 .custom + label::before {
     content: "";
-    border: 2px solid var(--bg);
+    border: 2px solid var(--check);
     border-radius: 4px;
     display: inline-block;
-    width: 7vh;
-    height: 7vh;
-    max-width: 30px;
-    max-height: 30px;
+    width: 4vh;
+    height: 3vh;
+    max-width: 33px;
+    max-height: 33px;
     border-radius: var(--btn-rad);
     outline: none;  
 }
 .custom:checked + label::before {
-    background-color: var(--bg);
-    border-color: var(--bg);
+    background-color: var(--check);
+    border-color: var(--check);
     background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 24 24' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 6L9 17l-5-5' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
     background-size: 14px;
     background-position: center;

@@ -23,7 +23,7 @@ input,#btn {
   padding: 0 20px;
   font-size: var(--fnt-size-s);
   background-color: var(--bt);
-  transition: 1s;
+  transition: 0.5s;
   border-bottom: 6px solid var(--bg);
   cursor: pointer;
 } #title {
@@ -46,11 +46,14 @@ input,#btn {
 
 input::placeholder {
   color: var(--placeholder-color);
+} input:hover,#btn:hover,input:focus,#btn:focus,input:active,#btn:active {
+  background-color: var(--bt-fc);
 }
 
 .alert {
   position: absolute;
   width: 40dvw;
+  max-width: 600px;
   top: 5%;
   left: 50%;
   transform: translate(-50%, -50%);
