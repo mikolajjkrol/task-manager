@@ -121,12 +121,18 @@ button {
   height: 5.5vh;
   max-width: 60px;
   max-height: 60px;
+  -webkit-box-shadow: 0px 0px 33px -15px rgba(0, 0, 0, 1);
+  -moz-box-shadow: 0px 0px 33px -15px rgba(0, 0, 0, 1);
+  box-shadow: 0px 0px 33px -15px rgba(0, 0, 0, 1);
 } .buttonactive{
   width: 5.5vh;
   height: 5.5vh;
   max-width: 60px;
   max-height: 60px;
   font-size: calc(var(--fnt-size-s) * 1);
+  -webkit-box-shadow: 0px 0px 33px -15px rgba(0, 0, 0, 1);
+  -moz-box-shadow: 0px 0px 33px -15px rgba(0, 0, 0, 1);
+  box-shadow: 0px 0px 33px -15px rgba(0, 0, 0, 1);
 }
 
 .switch{
