@@ -31,11 +31,12 @@ function App() {
         setShowAlert(prev=>{return {...prev, onAdd: false}});
       }, 2500); // Hide alert after 3 seconds
       
-      
-
       setTasks((prevTasks)=>{
-        const newTasks = [...prevTasks, task];
-        return newTasks;
+        if(prevTasks.length > 0 && prevTasks[prevTasks.length-1].isChecked == true){
+          return [task, ...prevTasks]
+        } else {
+          return [...prevTasks, task];
+        }
       })
     }    
   }
