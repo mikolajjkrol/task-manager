@@ -15,6 +15,7 @@ export default function Menu({ createTask, viewTasks }) {
             {buttons.map(({ id, action }) => (
                 <button
                     key={id}
+                    translate="no"
                     className={`material-icons ${active === id ? "buttonactive" : "btn"}`}
                     onClick={() => {
                         action();

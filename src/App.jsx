@@ -95,7 +95,7 @@ function App() {
       </div>
     </main>
   
-    <div className={`switch material-icons ${!darkTheme ? 'sun' : 'moon'}`} style={darkTheme ? {color: '#dedede'} : {color: '#1f1f1f'}} onClick={()=>setDarkTheme(prev => !prev)}>{!darkTheme ? 'light_mode' : 'dark_mode'}</div>
+    <div className={`switch material-icons ${!darkTheme ? 'sun' : 'moon'}`} translate="no" style={darkTheme ? {color: '#dedede'} : {color: '#1f1f1f'}} onClick={()=>setDarkTheme(prev => !prev)}>{!darkTheme ? 'light_mode' : 'dark_mode'}</div>
     </TasksManagerContext.Provider>
   )
 }

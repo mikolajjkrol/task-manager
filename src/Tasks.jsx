@@ -29,7 +29,7 @@ export default function Tasks({removeTask, onCheck}) {
                                     </div>
                             </div>
                             </label>
-                            <button className='material-icons' onClick={()=>removeTask(tasksList.indexOf(task))}>delete</button>
+                            <button  translate="no" className='material-icons' onClick={()=>removeTask(tasksList.indexOf(task))}>delete</button>
                         </div>
                         )})
             }
