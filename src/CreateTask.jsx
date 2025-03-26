@@ -1,5 +1,9 @@
-import { useRef } from "react"
-export default function CreateTask({addTask}) {
+import { useRef, useContext } from "react"
+import { TasksManagerContext } from "./store/tasks-manager-context"
+
+export default function CreateTask() {
+    const tasksCtx = useContext(TasksManagerContext)
+
     const title = useRef()
     const description = useRef()
     const dueDate = useRef()
@@ -14,18 +18,19 @@ export default function CreateTask({addTask}) {
             time: dueTime.current.value,
             who: person.current.value,
             isChecked: false,
+            isLate: false,
         }
 
-        addTask(task)
+        tasksCtx.addTask(task)
         
         if(task.title == '' && task.description == ''){
-           return 
+            return 
         } else {
             title.current.value = ''
-        description.current.value = ''
-        dueDate.current.value = ''
-        dueTime.current.value = ''
-        person.current.value = ''
+            description.current.value = ''
+            dueDate.current.value = ''
+            dueTime.current.value = ''
+            person.current.value = ''
 
         }
     }

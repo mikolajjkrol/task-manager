@@ -1,35 +1,35 @@
 import { TasksManagerContext } from "./store/tasks-manager-context"
 import { useContext, useState } from "react"
 
-export default function Tasks({removeTask, onCheck}) {
-    const tasksList = useContext(TasksManagerContext)
+export default function Tasks() {
+    const { tasks, checkTask, removeTask } = useContext(TasksManagerContext)        
     
     return (
         <>
         <div className='header'>Tasks</div>
         <div className="tasks-container">
             <div className='tasks'>
-            {tasksList.length === 0 && 
+            {tasks.length === 0 && 
                 <div className='no-tasks'>
                     <i>No tasks for the moment...</i>
                     <div className="material-icons">search</div>
                 </div>
             }
             {   
-            tasksList.map((task) => {
+            tasks.map((task, index) => {
                     return (
-                        <div className={`task ${task.isChecked ? 'oncheck' : ''}`} key={tasksList.indexOf(task)}>
-                            <input type='checkbox' id={tasksList.indexOf(task)} className="custom" onChange={()=>{onCheck(tasksList.indexOf(task))}} checked={task.isChecked}/>
-                            <label htmlFor={tasksList.indexOf(task)}>
+                        <div className={`task ${task.isChecked ? 'oncheck' : ''}`} key={index}>
+                            <input type='checkbox' id={index} className="custom" onChange={()=>{checkTask(index)}} checked={task.isChecked}/>
+                            <label htmlFor={index}>
                                 <div className="task-text">
                                     <b>{task.title}</b>
                                     <p>{task.description}</p>
                                     <div className="time">
-                                        <i>{task.date} {task.time}</i> <i>{task.who&&'~'}{task.who}</i>
+                                        <i className={task.isLate ? 'late' : ''}>{task.date} {task.time}</i> <i>{task.who&&'~'}{task.who}</i>
                                     </div>
                             </div>
                             </label>
-                            <button  translate="no" className='material-icons' onClick={()=>removeTask(tasksList.indexOf(task))}>delete</button>
+                            <button  translate="no" className='material-icons' onClick={()=>removeTask(index)}>delete</button>
                         </div>
                         )})
             }

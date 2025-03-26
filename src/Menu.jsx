@@ -1,24 +1,25 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { TasksManagerContext } from "./store/tasks-manager-context";
 
-export default function Menu({ createTask, viewTasks }) {
+export default function Menu() {
     const [active, setActive] = useState("menu");
-
+    const { handlePageChange } = useContext(TasksManagerContext)
     const buttons = [
-        { id: "menu", action: viewTasks },
-        { id: "create", action: createTask },
-        { id: "search", action: createTask },
-        { id: "note", action: createTask }
+        { id: "menu"},
+        { id: "create"},
+        { id: "search"},
+        { id: "note"}
     ];
 
     return (
         <div className="menu">
-            {buttons.map(({ id, action }) => (
+            {buttons.map(({ id }) => (
                 <button
                     key={id}
                     translate="no"
                     className={`material-icons ${active === id ? "buttonactive" : "btn"}`}
                     onClick={() => {
-                        action();
+                        handlePageChange(id);
                         setActive(id);
                     }}
                 >

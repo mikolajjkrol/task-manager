@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
 export const TasksManagerContext = createContext([
     {
@@ -8,5 +8,12 @@ export const TasksManagerContext = createContext([
         time: '',
         who: '',
         isChecked: false,
+        isLate: false,
+        addTask: ()=>{},
+        removeTask: ()=>{},
+        checkTask: ()=>{},
+        handlePageChange: ()=>{},
+        showAlert: {},
+        handleAlerts: ()=>{},
     },
 ]);

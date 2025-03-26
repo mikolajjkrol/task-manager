@@ -1,17 +1,24 @@
 import { useState, useReducer, useRef } from 'react'
+
 import CreateTask from './CreateTask.jsx'
 import Tasks from './Tasks.jsx'
 import Menu from './Menu.jsx';
+import Alerts from './Alerts.jsx';
+
 import { TasksManagerContext } from './store/tasks-manager-context.jsx';
-import Alert from '@mui/material/Alert';
+
 
 function App() {
-  const [ page, setPage ] = useState('tasks');
+  const [ page, setPage ] = useState('menu');
   const [ tasks, setTasks ] = useState([]);
   const [ darkTheme, setDarkTheme ] = useState(true)
   const [ showAlert, setShowAlert ] = useState({onAdd: false, onDelete: false, onNoInfo: false});
-  
+
   const timeoutRef = useRef(null);
+
+  const handlePageChange = (name) => {
+    setPage(name)
+  }
 
   const addTask = (task) => {
     if(timeoutRef.current){
@@ -33,12 +40,14 @@ function App() {
       
       setTasks((prevTasks)=>{
         if(prevTasks.length > 0 && prevTasks[prevTasks.length-1].isChecked == true){
+          checkIfLate([task, ...prevTasks]);
           return [task, ...prevTasks]
         } else {
+          checkIfLate([...prevTasks, task]);
           return [...prevTasks, task];
         }
       })
-    }    
+    }
   }
 
   const removeTask = (taskIndex) => {
@@ -78,19 +87,61 @@ function App() {
   })
   }
 
-  return (
-    <TasksManagerContext.Provider value={tasks}>
-    
-    {showAlert.onAdd && <Alert variant="filled" severity="success" className='alert' sx={{ bgcolor: '#005100af' }} onClose={()=>{setShowAlert(prev=>{return {...prev, onAdd: false}})}}>Succesfully added a task.</Alert>}
-    {showAlert.onDelete && <Alert variant="filled" severity="error" className='alert'  sx={{ bgcolor: '#d81010b9' }} onClose={()=>{setShowAlert(prev=>{return {...prev, onDelete: false}})}} icon={<div className='material-icons' style={{fontSize: '22px',}}>delete_forever</div>}>Succesfully removed task.</Alert>}
-    {showAlert.onNoInfo && <Alert variant="filled" severity="warning" className='alert' sx={{ bgcolor: '#deb41bd9' }} onClose={()=>{setShowAlert(prev=>{return {...prev, onNoInfo: false}})}}>Not enough information.</Alert>}
+  const handleAlerts = (action) => {
+    setShowAlert(prev => {
+      return {...prev, ...action}
+    })
+  }
 
+  function checkIfLate(array){
+    const notFormattedTime = new Date();
+    const actualTime = `${String(notFormattedTime.getHours()).padStart(2, '0')}:${String(notFormattedTime.getMinutes()).padStart(2, '0')}`;
+    const notFormattedDate = new Date();
+    const actualDate = `${notFormattedDate.getFullYear()}-${String(notFormattedDate.getMonth() + 1).padStart(2, '0')}-${String(notFormattedDate.getDate()).padStart(2, '0')}`;
+
+    if (array.length > 0){
+      array.forEach((task, index) => {
+        if(task.date.trim() === actualDate.trim()) {
+        }
+        if ((task.date != '' && task.time != '' &&  task.date < actualDate ||  (task.date == actualDate && task.time < actualTime  && task.time != '')) || ((task.date != '' && task.date < actualDate) || (task.time != '' && task.time < actualTime && task.date == ''))){
+          setTasks(prevTasks=>{
+            const newArr = [...prevTasks]
+            newArr[index] = {...newArr[index], isLate: true}
+            return newArr
+          })
+        } else {
+          setTasks(prevTasks=>{
+            const newArr = [...prevTasks]
+            newArr[index] = {...newArr[index], isLate: false}
+            return newArr
+          })
+        }
+        console.log(tasks)
+    });
+    }
+}
+
+  const tasksCtx = {
+    tasks: tasks,
+    addTask,
+    removeTask,
+    checkTask,
+    handlePageChange,
+    showAlert,
+    handleAlerts,
+  }
+
+  return (
+    <TasksManagerContext.Provider value={tasksCtx}>
+    
+    <Alerts />
+    
     <main className={darkTheme ? 'dark-theme' : 'light-theme'}>
       <div className='main'>
-        <Menu createTask={()=>setPage('create-task')} viewTasks={()=>setPage('tasks')}/>        
+        <Menu/>        
         <div className='container'>
-          {page === 'create-task' && <CreateTask addTask={addTask}/>}
-          {page === 'tasks' && <Tasks removeTask={removeTask} onCheck={checkTask}/>}
+          {page === 'menu' && <Tasks/>}
+          {page === 'create' && <CreateTask/>}
         </div>
       </div>
     </main>
