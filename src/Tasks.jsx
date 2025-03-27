@@ -1,5 +1,5 @@
 import { TasksManagerContext } from "./store/tasks-manager-context"
-import { useContext, useState } from "react"
+import { useContext, useEffect } from "react"
 
 export default function Tasks() {
     const { tasks, checkTask, removeTask } = useContext(TasksManagerContext)        

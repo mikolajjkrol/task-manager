@@ -1,4 +1,5 @@
-import { useState, useReducer, useRef } from 'react'
+import { useState, useReducer, useRef, useEffect } from 'react'
+import { fetchData } from './scripts/http.js';
 
 import CreateTask from './CreateTask.jsx'
 import Tasks from './Tasks.jsx'
@@ -7,6 +8,7 @@ import Alerts from './Alerts.jsx';
 
 import { TasksManagerContext } from './store/tasks-manager-context.jsx';
 
+const GITHUB_ON = true
 
 function App() {
   const [ page, setPage ] = useState('menu');
@@ -15,6 +17,16 @@ function App() {
   const [ showAlert, setShowAlert ] = useState({onAdd: false, onDelete: false, onNoInfo: false});
 
   const timeoutRef = useRef(null);
+
+  if(!GITHUB_ON){
+    useEffect(() => {
+      async function fetchTasks(){
+        const tasksData = await fetchData();
+        setTasks(tasksData)
+      }
+      fetchTasks();
+    },[])
+  }
 
   const handlePageChange = (name) => {
     setPage(name)
@@ -119,7 +131,7 @@ function App() {
         console.log(tasks)
     });
     }
-}
+  }
 
   const tasksCtx = {
     tasks: tasks,
