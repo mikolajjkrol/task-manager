@@ -1,5 +1,5 @@
 import { useState, useReducer, useRef, useEffect } from 'react'
-import { fetchData } from './scripts/http.js';
+import { fetchData, updateData } from './scripts/http.js';
 
 import CreateTask from './CreateTask.jsx'
 import Tasks from './Tasks.jsx'
@@ -7,8 +7,6 @@ import Menu from './Menu.jsx';
 import Alerts from './Alerts.jsx';
 
 import { TasksManagerContext } from './store/tasks-manager-context.jsx';
-
-const GITHUB_ON = true
 
 function App() {
   const [ page, setPage ] = useState('menu');
@@ -18,21 +16,19 @@ function App() {
 
   const timeoutRef = useRef(null);
 
-  if(!GITHUB_ON){
-    useEffect(() => {
-      async function fetchTasks(){
-        const tasksData = await fetchData();
-        setTasks(tasksData)
-      }
-      fetchTasks();
-    },[])
-  }
+  useEffect(() => {
+    async function fetchTasks(){
+      const tasksData = await fetchData();
+      setTasks(tasksData)
+    }
+    fetchTasks();
+  },[])
 
   const handlePageChange = (name) => {
     setPage(name)
   }
 
-  const addTask = (task) => {
+  const addTask = async (task) => {
     if(timeoutRef.current){
       clearTimeout(timeoutRef.current);
       setShowAlert((prev) => ({ ...prev, onAdd: false, onNoInfo: false, onDelete: false }));
@@ -53,16 +49,23 @@ function App() {
       setTasks((prevTasks)=>{
         if(prevTasks.length > 0 && prevTasks[prevTasks.length-1].isChecked == true){
           checkIfLate([task, ...prevTasks]);
-          return [task, ...prevTasks]
+          return [task, ...prevTasks];
         } else {
           checkIfLate([...prevTasks, task]);
           return [...prevTasks, task];
         }
       })
+      
+      if(tasks.length > 0 && tasks[tasks.length-1].isChecked == true){
+        await updateData([task,...tasks]);
+      } else {
+        await updateData([...tasks, task]);
+      }
+      
     }
   }
 
-  const removeTask = (taskIndex) => {
+  const removeTask = async (taskIndex) => {
     if(timeoutRef.current){
       clearTimeout(timeoutRef.current)
       setShowAlert((prev) => ({ ...prev, onAdd: false, onNoInfo: false, onDelete: false}));
@@ -81,9 +84,10 @@ function App() {
       const newTasks = prevTasks.filter((_, index) => index !== taskIndex);
       return newTasks;
     })
+    await updateData(tasks.filter((_, index) => index !== taskIndex));
   }
 
-  const checkTask = (index) => {
+  const checkTask = async (index) => {
     setTasks((prevArr) => {
       if(!prevArr[index].isChecked){
       const newArr = [...prevArr]
@@ -95,8 +99,19 @@ function App() {
       const newArr = [...prevArr];
       newArr[index] = {...newArr[index], isChecked: !newArr[index].isChecked}
       return newArr
+    }})
+    if(tasks[index].isChecked){
+      const newArr = [...tasks]
+      newArr[index] = {...newArr[index], isChecked: !newArr[index].isChecked}
+      const [movedTask] = newArr.splice(index, 1);
+      newArr.push(movedTask)
+      await updateData(newArr);
+    } else {
+      const newArr = [...tasks]
+      newArr[index] = {...newArr[index], isChecked: !newArr[index].isChecked}
+      await updateData(newArr);
     }
-  })
+    
   }
 
   const handleAlerts = (action) => {
@@ -128,7 +143,6 @@ function App() {
             return newArr
           })
         }
-        console.log(tasks)
     });
     }
   }

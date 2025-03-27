@@ -9,6 +9,17 @@ export async function fetchData(){
     return resData.tasks
 }
 
-export async function addData(data) {
+export async function updateData(data) {
+    const response = await fetch('http://localhost:3000/tasks',{
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+    });
+    const resData = await response.json();
+    
+    if(!response.ok){
+        throw new Error('Failed to upload data.')
+    }
 
+    return resData.message;
 }
