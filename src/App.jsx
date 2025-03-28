@@ -5,6 +5,7 @@ import CreateTask from './CreateTask.jsx'
 import Tasks from './Tasks.jsx'
 import Menu from './Menu.jsx';
 import Alerts from './Alerts.jsx';
+import SearchTasks from './SearchTasks.jsx';
 
 import { TasksManagerContext } from './store/tasks-manager-context.jsx';
 
@@ -120,7 +121,7 @@ function App() {
     })
   }
 
-  function checkIfLate(array){
+  async function checkIfLate(array){
     const notFormattedTime = new Date();
     const actualTime = `${String(notFormattedTime.getHours()).padStart(2, '0')}:${String(notFormattedTime.getMinutes()).padStart(2, '0')}`;
     const notFormattedDate = new Date();
@@ -145,6 +146,20 @@ function App() {
         }
     });
     }
+
+    for(let i in array){
+      if ((array[i].date != '' && array[i].time != '' &&  array[i].date < actualDate ||  (array[i].date == actualDate && array[i].time < actualTime  && array[i].time != '')) || ((array[i].date != '' && array[i].date < actualDate) || (array[i].time != '' && array[i].time < actualTime && array[i].date == ''))){
+        const newArr = [...array]
+        newArr[i] = {...newArr[i], isLate: true}
+        await updateData(newArr);
+      }
+      else {
+        const newArr = [...array]
+        newArr[i] = {...newArr[i], isLate: false}
+        await updateData(newArr);
+      }
+    }
+
   }
 
   const tasksCtx = {
@@ -168,6 +183,7 @@ function App() {
         <div className='container'>
           {page === 'menu' && <Tasks/>}
           {page === 'create' && <CreateTask/>}
+          {page === 'search' && <SearchTasks/>}
         </div>
       </div>
     </main>

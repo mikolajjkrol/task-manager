@@ -16,9 +16,13 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@mui/material": "^6.4.8",
+    "@studio-freight/lenis": "^1.0.42",
     "gh-pages": "^6.3.0",
+    "lenis": "^1.2.3",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-scroll": "^1.9.3",
+    "smooth-scrollbar": "^8.8.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

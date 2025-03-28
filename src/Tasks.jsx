@@ -1,8 +1,27 @@
 import { TasksManagerContext } from "./store/tasks-manager-context"
 import { useContext, useEffect } from "react"
+import Lenis from '@studio-freight/lenis';
 
 export default function Tasks() {
     const { tasks, checkTask, removeTask } = useContext(TasksManagerContext)        
+
+    useEffect(()=>{
+        const lenis = new Lenis({
+            wrapper: document.querySelector('.tasks'),
+            content: document.querySelector('.tasks'),
+            smoothWheel: true,
+            smoothTouch: true,
+        });
+        function raf(time){
+            lenis.raf(time)
+            requestAnimationFrame(raf)
+        }
+        requestAnimationFrame(raf)
+
+        return () => {
+            lenis.destroy(); // Cleanup when component unmounts
+          };        
+    }, [tasks])
     
     return (
         <>
@@ -12,7 +31,7 @@ export default function Tasks() {
             {tasks.length === 0 && 
                 <div className='no-tasks'>
                     <i>No tasks for the moment...</i>
-                    <div className="material-icons">search</div>
+                    <div className="material-icons" translate="no">search</div>
                 </div>
             }
             {   

@@ -18,6 +18,7 @@
   --check: #8b806b;
   --fnt: #303030;
   --placeholder-color: #0000009a;
+  --sr-bg: #edece75c;
 }
 .dark-theme {
   --bg: #11121b;
@@ -28,6 +29,7 @@
   --check: #11121b9e;
   --fnt: #ebebeb;
   --placeholder-color: #ffffff9a;
+  --sr-bg: #11121b35;
 }
 * {
   font-family: 'Fira Code', monospace;
