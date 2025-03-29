@@ -72,6 +72,20 @@ export default function SearchTasks(){
             });
 
             setSearchedTasks(newList)
+        } else if (type.current.value == 'person'){
+            console.log('checking person tasks!')
+
+            let newList = []
+            
+            actualTasks.forEach(task => {
+                if(phrase.current.value && task.who?.toLowerCase()?.includes(phrase.current.value.toLowerCase())){
+                    newList.push(task)
+                } else if(!phrase.current.value && task.who){
+                    newList.push(task)
+                }
+            });
+
+            setSearchedTasks(newList)
         }
     }
 
