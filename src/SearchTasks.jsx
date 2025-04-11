@@ -40,11 +40,13 @@ export default function SearchTasks(){
             console.log('checking waiting tasks!')
             
             let newList = []
-            
+
             actualTasks.forEach(task => {
-                if(!task.isChecked){
+                if((!task.isChecked && phrase.current.value && task.description?.toLowerCase()?.includes(phrase.current.value.toLowerCase()))||(!task.isChecked && phrase.current.value && phrase.current.value && task.title?.toLowerCase()?.includes(phrase.current.value.toLowerCase()))){
                     newList.push(task)
-                }                
+                } else if(!phrase.current.value && !task.isChecked){
+                    newList.push(task)
+                }
             });
 
             setSearchedTasks(newList)
@@ -54,9 +56,11 @@ export default function SearchTasks(){
             let newList = []
             
             actualTasks.forEach(task => {
-                if(task.isChecked){
+                if((task.isChecked && phrase.current.value && task.description?.toLowerCase()?.includes(phrase.current.value.toLowerCase()))||(task.isChecked && phrase.current.value && phrase.current.value && task.title?.toLowerCase()?.includes(phrase.current.value.toLowerCase()))){
                     newList.push(task)
-                }                
+                } else if(!phrase.current.value && task.isChecked){
+                    newList.push(task)
+                }
             });
 
             setSearchedTasks(newList)
@@ -66,9 +70,11 @@ export default function SearchTasks(){
             let newList = []
             
             actualTasks.forEach(task => {
-                if(task.isLate){
+                if((task.isLate && phrase.current.value && task.description?.toLowerCase()?.includes(phrase.current.value.toLowerCase()))||(task.isLate && phrase.current.value && phrase.current.value && task.title?.toLowerCase()?.includes(phrase.current.value.toLowerCase()))){
                     newList.push(task)
-                }                
+                } else if(!phrase.current.value && task.isLate){
+                    newList.push(task)
+                }
             });
 
             setSearchedTasks(newList)
@@ -93,7 +99,7 @@ export default function SearchTasks(){
         <>
         <div className='header'>Search tasks</div>
         <div className='search-tasks'>
-            <input type='text' placeholder='search' ref={phrase} />
+            <input type='text' placeholder='search (by content)' ref={phrase} />
             <select ref={type}>
                 <option>waiting</option>
                 <option>done</option>
