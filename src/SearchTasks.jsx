@@ -1,15 +1,18 @@
-import { useRef, useState, useEffect } from "react"
+import { useRef, useState, useEffect, useContext } from "react"
 import { fetchData, updateData } from './scripts/http.js';
+import { TasksManagerContext } from "./store/tasks-manager-context.jsx";
 import Lenis from '@studio-freight/lenis';
 
 export default function SearchTasks(){
-    const [ actualTasks, setActualTasks ] = useState([]);
+    const { tasks } = useContext(TasksManagerContext)
+
+    const [ actualTasks, setActualTasks ] = useState(tasks);
     const [ searchedTasks, setSearchedTasks ] = useState([]); 
 
     useEffect(() => {
         async function fetchTasks(){
-          const tasksData = await fetchData();
-          setActualTasks(tasksData)
+            const tasksData = await fetchData();
+            setActualTasks(tasksData)
         }
         fetchTasks();
       },[]);
@@ -87,6 +90,20 @@ export default function SearchTasks(){
                 if(phrase.current.value && task.who?.toLowerCase()?.includes(phrase.current.value.toLowerCase())){
                     newList.push(task)
                 } else if(!phrase.current.value && task.who){
+                    newList.push(task)
+                }
+            });
+
+            setSearchedTasks(newList)
+        } else if (type.current.value == 'date'){
+            console.log('checking date tasks!')
+
+            let newList = []
+            
+            actualTasks.forEach(task => {
+                if(phrase.current.value && task.date?.toLowerCase()?.includes(phrase.current.value.toLowerCase())){
+                    newList.push(task)
+                } else if(!phrase.current.value && task.date){
                     newList.push(task)
                 }
             });
