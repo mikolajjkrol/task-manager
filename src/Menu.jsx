@@ -7,8 +7,7 @@ export default function Menu() {
     const buttons = [
         { id: "menu"},
         { id: "create"},
-        { id: "search"},
-        { id: "note"}
+        { id: "search"}
     ];
 
     return (
